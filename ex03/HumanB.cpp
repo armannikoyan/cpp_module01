@@ -6,13 +6,13 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 12:57:44 by anikoyan          #+#    #+#             */
-/*   Updated: 2025/04/27 20:34:10 by anikoyan         ###   ########.fr       */
+/*   Updated: 2025/04/28 19:29:37 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// HumanB.cpp
-#include "HumanB.hpp"
 #include <iostream>
+
+#include "HumanB.hpp"
 
 HumanB::HumanB(const std::string& name, Weapon* weapon)
   : name_(name)
@@ -22,7 +22,7 @@ HumanB::HumanB(const std::string& name, Weapon* weapon)
 HumanB::~HumanB() {}
 
 void HumanB::setWeapon(Weapon& weapon) {
-  weapon_ = &weapon;    // now points to the passed-in object
+  weapon_ = &weapon;
 }
 
 void HumanB::attack() {

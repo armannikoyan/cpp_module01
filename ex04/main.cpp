@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 09:55:43 by anikoyan          #+#    #+#             */
-/*   Updated: 2025/04/28 16:04:21 by anikoyan         ###   ########.fr       */
+/*   Updated: 2025/04/28 18:10:40 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@ int main(int argc, char **argv)
   if (argc != 3 && argc != 4)
   {
     std::cerr << "Usage: " << argv[0] << " filename replaceable [replacement]\n";
-    return EXIT_FAILURE;
+    return 1;
   }
 
   std::ifstream input_file(argv[1]);
   if (!input_file)
   {
     std::cerr << "Error: Could not open input file.\n";
-    return EXIT_FAILURE;
+    return 1;
   }
 
-  std::ofstream output_file(std::string(argv[1]) + ".replace");
+  std::ofstream output_file((std::string(argv[1]) + ".replace").c_str());
   if (!output_file)
   {
     std::cerr << "Error: Could not create output file.\n";
-    return EXIT_FAILURE;
+    return 1;
   }
 
   std::string replaceable = argv[2];
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
   if (replaceable.empty())
   {
     std::cerr << "Error: Replaceable string cannot be empty.\n";
-    return EXIT_FAILURE;
+    return 1;
   }
 
   std::string content(
@@ -66,5 +66,5 @@ int main(int argc, char **argv)
   output_file << result;
   output_file.close();
 
-  return EXIT_SUCCESS;
+  return 0;
 }
