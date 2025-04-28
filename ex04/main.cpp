@@ -6,7 +6,7 @@
 /*   By: anikoyan <anikoyan@student.42yerevan.am>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 09:55:43 by anikoyan          #+#    #+#             */
-/*   Updated: 2025/04/28 15:49:55 by anikoyan         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:04:21 by anikoyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 {
   if (argc != 3 && argc != 4)
   {
-    std::cerr << "Usage: " << argv[0] << " filename replaceable replacement[can be ommited to replace with nothing]\n";
+    std::cerr << "Usage: " << argv[0] << " filename replaceable [replacement]\n";
     return EXIT_FAILURE;
   }
 
@@ -38,8 +38,7 @@ int main(int argc, char **argv)
   }
 
   std::string replaceable = argv[2];
-  std::string replacement = argv[3];
-
+  std::string replacement = (argc == 4) ? argv[3] : "";
   if (replaceable.empty())
   {
     std::cerr << "Error: Replaceable string cannot be empty.\n";
@@ -47,22 +46,21 @@ int main(int argc, char **argv)
   }
 
   std::string content(
-      (std::istream_iterator<char>(input_file))
-      , std::istream_iterator<char>()
+      (std::istreambuf_iterator<char>(input_file)),
+      std::istreambuf_iterator<char>()
       );
   input_file.close();
 
   std::string result;
   size_t start_pos = 0;
-  size_t found_pos = 0;
+  size_t found_pos;
 
   while ((found_pos = content.find(replaceable, start_pos)) != std::string::npos)
   {
     result.append(content, start_pos, found_pos - start_pos);
     result += replacement;
-    start_pos = found_pos + replacement.length();
-    if (found_pos == std::string::npos) break;
-  }
+    start_pos = found_pos + replaceable.length();
+  } 
   result.append(content, start_pos, std::string::npos);
 
   output_file << result;
